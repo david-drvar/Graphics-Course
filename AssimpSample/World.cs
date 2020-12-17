@@ -184,6 +184,16 @@ namespace AssimpSample
             cylinder.TopRadius = 10;
             cylinder.Height = 400;
 
+            Cylinder upper = new Cylinder();
+            upper.BaseRadius = 10;
+            upper.TopRadius = 10;
+            upper.Height = 100;
+
+            Cylinder down = new Cylinder();
+            down.BaseRadius = 10;
+            down.TopRadius = 10;
+            down.Height = 200;
+
             gl.PushMatrix();
             gl.Scale(0.6f, 0.6f, 0.6f);
             gl.Translate(0f, 50f, 0f);
@@ -195,18 +205,54 @@ namespace AssimpSample
 
             //desni stativ
             gl.PushMatrix();
-            gl.Translate(0f, 400f, -800f);
-            gl.Translate(-200f, -10f, -150f);
+            gl.Translate(0f, 400f, -950f);
+            gl.Translate(-200f, -10f, 0);
             gl.Rotate(90f, 0f, 0f);
             cylinder.CreateInContext(gl);
             cylinder.Render(gl, SharpGL.SceneGraph.Core.RenderMode.Render);
             gl.PopMatrix();
 
+            //gornji desni
+            gl.PushMatrix();
+            gl.Translate(0f, 400f, -950f);
+            gl.Translate(-200f, -10f, 0);
+            gl.Translate(0f, 0f, -100f);
+            upper.CreateInContext(gl);
+            upper.Render(gl, SharpGL.SceneGraph.Core.RenderMode.Render);
+            gl.PopMatrix();
+
+            //gornji levi
+            gl.PushMatrix();
+            gl.Translate(0f, 400f, -950f);
+            gl.Translate(200f, -10f, 0f);
+            gl.Translate(0f, 0f, -100f);
+            upper.CreateInContext(gl);
+            upper.Render(gl, SharpGL.SceneGraph.Core.RenderMode.Render);
+            gl.PopMatrix();
+
+            //donji desni
+            gl.PushMatrix();
+            gl.Translate(0f, 400f, -950f);
+            gl.Translate(-200f, -10f, 0);
+            gl.Translate(0f, -388f, -200f);
+            down.CreateInContext(gl);
+            down.Render(gl, SharpGL.SceneGraph.Core.RenderMode.Render);
+            gl.PopMatrix();
+
+            //donji levi
+            gl.PushMatrix();
+            gl.Translate(0f, 400f, -950f);
+            gl.Translate(200f, -10f, 0f);
+            gl.Translate(0f, -388f, -200f);
+            down.CreateInContext(gl);
+            down.Render(gl, SharpGL.SceneGraph.Core.RenderMode.Render);
+            gl.PopMatrix();
+
+
             //levi stativ
             gl.PushMatrix();
-
-            gl.Translate(0f, 400f, -800f);
-            gl.Translate(200f, -10f, -150f);
+            gl.Translate(0f, 400f, -950f);
+            gl.Translate(200f, -10f, 0f);
             gl.Rotate(90f, 0f, 0f);
             cylinder.CreateInContext(gl);
             cylinder.Render(gl, SharpGL.SceneGraph.Core.RenderMode.Render);
@@ -214,9 +260,39 @@ namespace AssimpSample
 
             //gornji stativ
             gl.PushMatrix();
-            gl.Translate(0f, 400f, -800f);
-            gl.Translate(200f, -10f, -150f);
+            gl.Translate(0f, 400f, -950f);
+            gl.Translate(200f, -10f, 0f);
             gl.Rotate(90f, -90f, 0f);
+            cylinder.CreateInContext(gl);
+            cylinder.Render(gl, SharpGL.SceneGraph.Core.RenderMode.Render);
+            gl.PopMatrix();
+
+            //donji stativ
+            gl.PushMatrix();
+            gl.Translate(0f, 400f, -950f);
+            gl.Translate(200f, -10f, 0f);
+            gl.Translate(0, -388f, -200f);
+            gl.Rotate(90f, -90f, 0f);
+            cylinder.CreateInContext(gl);
+            cylinder.Render(gl, SharpGL.SceneGraph.Core.RenderMode.Render);
+            gl.PopMatrix();
+
+            //ukoso leva
+            gl.PushMatrix();
+            gl.Translate(0f, 400f, -950f);
+            gl.Translate(200f, -10f, 0f);
+            gl.Translate(0f, -388f, -200f);
+            gl.Rotate(-75f, 0f, 0f);
+            cylinder.CreateInContext(gl);
+            cylinder.Render(gl, SharpGL.SceneGraph.Core.RenderMode.Render);
+            gl.PopMatrix();
+
+            //ukoso desna
+            gl.PushMatrix();
+            gl.Translate(0f, 400f, -950f);
+            gl.Translate(-200f, -10f, 0);
+            gl.Translate(0f, -388f, -200f);
+            gl.Rotate(-75f, 0f, 0f);
             cylinder.CreateInContext(gl);
             cylinder.Render(gl, SharpGL.SceneGraph.Core.RenderMode.Render);
             gl.PopMatrix();
@@ -232,6 +308,8 @@ namespace AssimpSample
             gl.Vertex4f(-500f, -100f, 500, 1);
             gl.End();
             gl.PopMatrix();
+
+
 
 
             //ose
