@@ -170,9 +170,9 @@ namespace AssimpSample
         public void Draw(OpenGL gl)
         {
             gl.Clear(OpenGL.GL_COLOR_BUFFER_BIT | OpenGL.GL_DEPTH_BUFFER_BIT);
-            //gl.Viewport(0, 0, m_width, m_height);
-            gl.LoadIdentity();
+            gl.Viewport(0, 0, m_width, m_height);
             //gl.Perspective(50f, (double)m_width / m_height, 0.5f, 250000f);
+            gl.LoadIdentity();
 
             gl.PushMatrix();
             gl.Translate(0.0f, 0.0f, -m_sceneDistance);
@@ -191,22 +191,7 @@ namespace AssimpSample
             gl.PopMatrix();
             
 
-            gl.PushMatrix();
-            //gl.Viewport(m_width / 2, m_height / 2, m_width / 2, m_height / 2);
-            gl.DrawText(m_width - 300, m_height - 30, 0.45f, 0.45f, 0.45f, "Arial", 10, "Predmet: Racunarska grafika");
-            gl.DrawText(m_width - 300, m_height - 28, 0.45f, 0.45f, 0.45f, "Arial", 10, "Predmet: Racunarska grafika");
-            gl.DrawText(m_width - 300, m_height - 60, 0.45f, 0.45f, 0.45f, "Arial", 10, "Sk.god: 2020/21");
-            gl.DrawText(m_width - 300, m_height - 58, 0.45f, 0.45f, 0.45f, "Arial", 10, "Sk.god: 2020/21");
-            gl.DrawText(m_width - 300, m_height - 90, 0.45f, 0.45f, 0.45f, "Arial", 10, "Ime: David");
-            gl.DrawText(m_width - 300, m_height - 88, 0.45f, 0.45f, 0.45f, "Arial", 10, "Ime: David");
-            gl.DrawText(m_width - 300, m_height - 120, 0.45f, 0.45f, 0.45f, "Arial", 10, "Prezime: Drvar");
-            gl.DrawText(m_width - 300, m_height - 118, 0.45f, 0.45f, 0.45f, "Arial", 10, "Prezime: Drvar");
-            gl.DrawText(m_width - 300, m_height - 150, 0.45f, 0.45f, 0.45f, "Arial", 10, "Sifra zad: 17.2");
-            gl.DrawText(m_width - 300, m_height - 148, 0.45f, 0.45f, 0.45f, "Arial", 10, "Sifra zad: 17.2");
-            
-            gl.PopMatrix();
-
-            gl.Color(0.4f, 0.7f, 0.6f);
+            gl.Color(1f, 1f, 1f);
 
             //desni stativ
             gl.PushMatrix();
@@ -268,6 +253,35 @@ namespace AssimpSample
             gl.PopMatrix();
 
             //gl.Viewport(0, 0, m_width, m_height);
+
+            gl.PushMatrix();
+            //gl.Ortho2D(1, 1, 1,1);
+            //gl.Ortho2D(0, m_width, 0, m_height);
+            gl.Color(1f, 1f, 1f);
+            gl.Translate(m_width - 300, m_height - 30,0f);
+            gl.Viewport(m_width / 2, m_height / 2, m_width / 2, m_height / 2);
+            //gl.DrawText3D("Arial", 25344f, 2331f, 1f, "teapot");
+
+            gl.DrawText(m_width - 300, m_height - 30, 0.45f, 0.45f, 0.45f, "Arial", 10, "Predmet: Racunarska grafika");
+            gl.DrawText(m_width - 300, m_height - 28, 0.45f, 0.45f, 0.45f, "Arial", 10, "Predmet: Racunarska grafika");
+            gl.DrawText(m_width - 300, m_height - 60, 0.45f, 0.45f, 0.45f, "Arial", 10, "Sk.god: 2020/21");
+            gl.DrawText(m_width - 300, m_height - 58, 0.45f, 0.45f, 0.45f, "Arial", 10, "Sk.god: 2020/21");
+            gl.DrawText(m_width - 300, m_height - 90, 0.45f, 0.45f, 0.45f, "Arial", 10, "Ime: David");
+            gl.DrawText(m_width - 300, m_height - 88, 0.45f, 0.45f, 0.45f, "Arial", 10, "Ime: David");
+            gl.DrawText(m_width - 300, m_height - 120, 0.45f, 0.45f, 0.45f, "Arial", 10, "Prezime: Drvar");
+            gl.DrawText(m_width - 300, m_height - 118, 0.45f, 0.45f, 0.45f, "Arial", 10, "Prezime: Drvar");
+            gl.DrawText(m_width - 300, m_height - 150, 0.45f, 0.45f, 0.45f, "Arial", 10, "Sifra zad: 17.2");
+            gl.DrawText(m_width - 300, m_height - 148, 0.45f, 0.45f, 0.45f, "Arial", 10, "Sifra zad: 17.2");
+            gl.Color(1f, 1f, 1f);
+            gl.Translate(m_width - 300, m_height - 30, 0f);
+            gl.Viewport(0, 0, m_width, m_height);
+            //gl.Ortho2D(-m_width, m_width, -m_height, m_height);
+            
+            gl.PopMatrix();
+
+
+
+            
             gl.PopMatrix();
             gl.Flush();
         }
