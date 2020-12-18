@@ -160,6 +160,7 @@ namespace AssimpSample
             // Model sencenja na flat (konstantno)
             gl.ShadeModel(OpenGL.GL_FLAT);
             gl.Enable(OpenGL.GL_DEPTH_TEST);
+            gl.Enable(OpenGL.GL_CULL_FACE);
             m_scene.LoadScene();
             m_scene.Initialize();
         }
@@ -171,7 +172,6 @@ namespace AssimpSample
         {
             gl.Clear(OpenGL.GL_COLOR_BUFFER_BIT | OpenGL.GL_DEPTH_BUFFER_BIT);
             gl.Viewport(0, 0, m_width, m_height);
-            //gl.Perspective(50f, (double)m_width / m_height, 0.5f, 250000f);
             gl.LoadIdentity();
 
             gl.PushMatrix();
@@ -310,8 +310,6 @@ namespace AssimpSample
             gl.PopMatrix();
 
 
-
-
             //ose
             gl.PushMatrix();
             gl.Begin(OpenGL.GL_LINES);
@@ -335,10 +333,12 @@ namespace AssimpSample
             gl.PushMatrix();
             //gl.Ortho2D(1, 1, 1,1);
             //gl.Ortho2D(0, m_width, 0, m_height);
-            gl.Color(1f, 1f, 1f);
-            gl.Translate(m_width - 300, m_height - 30,0f);
+            //gl.MatrixMode(OpenGL.GL_PROJECTION);
+            //gl.Translate(m_width - 300, m_height - 30, 0f);
             gl.Viewport(m_width / 2, m_height / 2, m_width / 2, m_height / 2);
             //gl.DrawText3D("Arial", 25344f, 2331f, 1f, "teapot");
+            //gl.Color(1f, 1f, 1f);
+            //gl.DrawText3D("Arial", 124f, 13f, 304f, "Proba");
 
             gl.DrawText(m_width - 300, m_height - 30, 0.45f, 0.45f, 0.45f, "Arial", 10, "Predmet: Racunarska grafika");
             gl.DrawText(m_width - 300, m_height - 28, 0.45f, 0.45f, 0.45f, "Arial", 10, "Predmet: Racunarska grafika");
@@ -353,13 +353,10 @@ namespace AssimpSample
             gl.Color(1f, 1f, 1f);
             gl.Translate(m_width - 300, m_height - 30, 0f);
             gl.Viewport(0, 0, m_width, m_height);
-            //gl.Ortho2D(-m_width, m_width, -m_height, m_height);
-            
             gl.PopMatrix();
 
 
 
-            
             gl.PopMatrix();
             gl.Flush();
         }
