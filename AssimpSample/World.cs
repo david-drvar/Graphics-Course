@@ -328,7 +328,6 @@ namespace AssimpSample
             gl.End();
             gl.PopMatrix();
 
-            //gl.Viewport(0, 0, m_width, m_height);
 
             gl.PushMatrix();
             //gl.Ortho2D(1, 1, 1,1);
@@ -341,7 +340,7 @@ namespace AssimpSample
             //gl.DrawText3D("Arial", 124f, 13f, 304f, "Proba");
 
             gl.DrawText(m_width - 300, m_height - 30, 0.45f, 0.45f, 0.45f, "Arial", 10, "Predmet: Racunarska grafika");
-            gl.DrawText(m_width - 300, m_height - 28, 0.45f, 0.45f, 0.45f, "Arial", 10, "Predmet: Racunarska grafika");
+            gl.DrawText(m_width - 300, m_height - 27, 0.45f, 0.45f, 0.45f, "Arial", 10, "Predmet: Racunarska grafika");
             gl.DrawText(m_width - 300, m_height - 60, 0.45f, 0.45f, 0.45f, "Arial", 10, "Sk.god: 2020/21");
             gl.DrawText(m_width - 300, m_height - 58, 0.45f, 0.45f, 0.45f, "Arial", 10, "Sk.god: 2020/21");
             gl.DrawText(m_width - 300, m_height - 90, 0.45f, 0.45f, 0.45f, "Arial", 10, "Ime: David");
@@ -372,7 +371,7 @@ namespace AssimpSample
             gl.Viewport(0, 0, m_width, m_height);
             gl.MatrixMode(OpenGL.GL_PROJECTION);      // selektuj Projection Matrix
             gl.LoadIdentity();
-            gl.Perspective(50f, (double)width / height, 0.5f, 250000f);
+            gl.Perspective(50f, (double)width / height, 0.5f, 25000f);
             gl.MatrixMode(OpenGL.GL_MODELVIEW);
             gl.LoadIdentity();                // resetuj ModelView Matrix
         }
