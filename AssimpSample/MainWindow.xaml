@@ -4,12 +4,31 @@
         Title="SharpGL WPF Application" Height="350" Width="525" 
         xmlns:sharpGL="clr-namespace:SharpGL.WPF;assembly=SharpGL.WPF" KeyDown="Window_KeyDown">
     <Grid>
-        
-        <!-- The OpenGL control provides a OpenGL drawing surface. -->
-        <sharpGL:OpenGLControl 
+        <DockPanel>
+
+            <ToolBarTray DockPanel.Dock="Top" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MaxWidth="1000">
+                <ToolBar>
+                    <Label>Izbor boje</Label>
+                    <ComboBox  ItemsSource="{Binding Path=izborBojeSvetlosti}" SelectionChanged="IzborBojeSelectionChanged">
+                        
+                    </ComboBox>
+                    <Label>Izbor faktora skaliranja lopte   </Label>
+                    <ComboBox x:Name="ComboSkaliranjeLopte" ItemsSource="{Binding Path=faktorSkaliranjaLopte}" SelectionChanged="IzborFaktoraSkaliranjaLopte">
+
+                    </ComboBox>
+                    <Label>Izbor brzine automatske rotacije lopte oko svoje y-ose</Label>
+                    <ComboBox  x:Name="ComboRotacijaLopte" ItemsSource="{Binding Path=faktorRotacijeLopte}" SelectionChanged="IzborFaktoraRotacijeLopte">
+
+                    </ComboBox>
+                </ToolBar>
+            </ToolBarTray>
+            <sharpGL:OpenGLControl 
             Name="openGLControl" OpenGLDraw="openGLControl_OpenGLDraw" 
             OpenGLInitialized="openGLControl_OpenGLInitialized" Resized="openGLControl_Resized"
             DrawFPS="True" RenderContextType="FBO" FrameRate="10"/>
+        </DockPanel>
+        <!-- The OpenGL control provides a OpenGL drawing surface. -->
+        
         
     </Grid>
 </Window>

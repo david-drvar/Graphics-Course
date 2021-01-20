@@ -31,6 +31,12 @@ namespace AssimpSample
         /// </summary>
         World m_world = null;
 
+        public ObservableCollection<float> faktorSkaliranjaLopte { get; set; }
+        public ObservableCollection<double> faktorRotacijeLopte { get; set; }
+        public ObservableCollection<String> izborBojeSvetlosti { get; set; }
+
+
+
         public static float brzinaRotacije = 1;
         public ObservableCollection<float> BrzinaRotacije
         {
@@ -57,29 +63,37 @@ namespace AssimpSample
 
         public MainWindow()
         {
-            BrzinaRotacije = new ObservableCollection<float>();
-            BrzinaRotacije.Add(2);
-            BrzinaRotacije.Add(5);
-            BrzinaRotacije.Add(10);
-            BrzinaRotacije.Add(15);
-            BrzinaRotacije.Add(20);
-            BrzinaRotacije.Add(25);
-            BrzinaRotacije.Add(30);
-            BrzinaRotacije.Add(35);
-            BrzinaRotacije.Add(40);
-            BrzinaRotacije.Add(45);
+            faktorSkaliranjaLopte = new ObservableCollection<float>();
+            faktorSkaliranjaLopte.Add(2);
+            faktorSkaliranjaLopte.Add(5);
+            faktorSkaliranjaLopte.Add(10);
+            faktorSkaliranjaLopte.Add(15);
+            faktorSkaliranjaLopte.Add(20);
+            faktorSkaliranjaLopte.Add(25);
+            faktorSkaliranjaLopte.Add(30);
+            faktorSkaliranjaLopte.Add(35);
+            faktorSkaliranjaLopte.Add(40);
+            faktorSkaliranjaLopte.Add(45);
 
-            Skaliranje = new ObservableCollection<double>();
-            Skaliranje.Add(0.1);
-            Skaliranje.Add(0.2);
-            Skaliranje.Add(0.3);
-            Skaliranje.Add(0.4);
-            Skaliranje.Add(0.5);
-            Skaliranje.Add(0.6);
-            Skaliranje.Add(0.7);
-            Skaliranje.Add(0.8);
-            Skaliranje.Add(0.9);
-            Skaliranje.Add(1);
+            faktorRotacijeLopte = new ObservableCollection<double>();
+            faktorRotacijeLopte.Add(0.1);
+            faktorRotacijeLopte.Add(0.2);
+            faktorRotacijeLopte.Add(0.3);
+            faktorRotacijeLopte.Add(0.4);
+            faktorRotacijeLopte.Add(0.5);
+            faktorRotacijeLopte.Add(0.6);
+            faktorRotacijeLopte.Add(0.7);
+            faktorRotacijeLopte.Add(0.8);
+            faktorRotacijeLopte.Add(0.9);
+            faktorRotacijeLopte.Add(1);
+
+            izborBojeSvetlosti = new ObservableCollection<String>();
+            izborBojeSvetlosti.Add("white");
+            izborBojeSvetlosti.Add("yellow");
+            izborBojeSvetlosti.Add("purple");
+            izborBojeSvetlosti.Add("red");
+            izborBojeSvetlosti.Add("blue");
+            izborBojeSvetlosti.Add("green");
 
             // Inicijalizacija komponenti
             InitializeComponent();
@@ -206,6 +220,24 @@ namespace AssimpSample
                     }
                     break;
             }
+        }
+
+        private void IzborBojeSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {  
+            
+
+        }
+
+        private void IzborFaktoraSkaliranjaLopte(object sender, SelectionChangedEventArgs e)
+        {
+            m_world.skaliranjeLopte = (float) ComboSkaliranjeLopte.SelectedItem;
+
+        }
+
+        private void IzborFaktoraRotacijeLopte(object sender, SelectionChangedEventArgs e)
+        {
+            m_world.skaliranjeLopte = (float)ComboSkaliranjeLopte.SelectedItem;
+
         }
     }
 }

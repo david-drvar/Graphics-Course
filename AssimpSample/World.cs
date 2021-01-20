@@ -15,6 +15,8 @@ using SharpGL.SceneGraph.Quadrics;
 using SharpGL.SceneGraph.Core;
 using SharpGL;
 using SharpGL.SceneGraph.Cameras;
+using System.Threading;
+using System.Windows.Threading;
 
 namespace AssimpSample
 {
@@ -45,6 +47,20 @@ namespace AssimpSample
             Bigger,
 
         };
+
+        public DispatcherTimer timer1;
+        public DispatcherTimer timer2;
+
+
+
+
+        public double skaliranjeLopte { get; set; }
+        public float rotiranjeLopte { get; set; }
+
+        public float maxLopta = 250;
+        public float trenutnaLopta = 0;
+        public bool nagore = true;
+
 
         public enum BrzinaRotacije
         {
@@ -170,11 +186,15 @@ namespace AssimpSample
         /// <summary>
         ///  Konstruktor klase World.
         /// </summary>
+        /// 
+
+
         public World(String scenePath, String sceneFileName, int width, int height, OpenGL gl)
         {
             this.m_scene = new AssimpScene(scenePath, sceneFileName, gl);
             this.m_width = width;
             this.m_height = height;
+            this.skaliranjeLopte = 0.6f;
         }
 
         /// <summary>
@@ -202,6 +222,16 @@ namespace AssimpSample
             gl.ColorMaterial(OpenGL.GL_FRONT, OpenGL.GL_AMBIENT_AND_DIFFUSE);
             gl.Enable(OpenGL.GL_NORMALIZE);
 
+            timer1 = new DispatcherTimer();
+            timer1.Interval = TimeSpan.FromMilliseconds(20);
+            timer1.Tick += new EventHandler(UpdateAnimationBallRotation);
+            timer1.Start();
+
+            timer2 = new DispatcherTimer();
+            timer2.Interval = TimeSpan.FromMilliseconds(20);
+            timer2.Tick += new EventHandler(UpdateAnimationBouncing);
+            timer2.Start();
+
             // Podesavanje inicijalnih parametara kamere
             //lookAtCam = new LookAtCamera();
             //lookAtCam.Position = new Vertex(0f, 0f, 0f);
@@ -219,6 +249,33 @@ namespace AssimpSample
             m_scene.Initialize();
         }
 
+        private void UpdateAnimationBallRotation(object sender, EventArgs e)
+        {
+            rotiranjeLopte += 1;
+        }
+
+        private void UpdateAnimationBouncing(object sender, EventArgs e)
+        {
+            if (nagore == true && trenutnaLopta + 10 <= maxLopta)
+                trenutnaLopta += 10;
+            else if (nagore==true && trenutnaLopta == maxLopta)
+            {
+                nagore = false;
+                trenutnaLopta -= 10;
+            }
+            else if (nagore == false && trenutnaLopta -10 >= 0)
+            {
+                nagore = false;
+                trenutnaLopta -= 10;
+            }
+            else if (trenutnaLopta == 0)
+            {
+                nagore = true;
+                trenutnaLopta += 10;
+            }
+                
+        }
+
         /// <summary>
         ///  Iscrtavanje OpenGL kontrole.
         /// </summary>
@@ -227,6 +284,7 @@ namespace AssimpSample
             gl.Clear(OpenGL.GL_COLOR_BUFFER_BIT | OpenGL.GL_DEPTH_BUFFER_BIT);
             gl.Viewport(0, 0, m_width, m_height);
             gl.LoadIdentity();
+            
 
             gl.LookAt(0, 0, 10, 0, 0, 0, 0, 1, 0);
 
@@ -318,7 +376,9 @@ namespace AssimpSample
             down.Height = 200;
 
             gl.PushMatrix();
-            gl.Scale(0.6f, 0.6f, 0.6f);
+            gl.Rotate(0, rotiranjeLopte, 0);
+            gl.Translate(0,trenutnaLopta, 0);
+            gl.Scale(skaliranjeLopte,skaliranjeLopte,skaliranjeLopte);
             gl.Translate(0f, 50f, 0f);
             m_scene.Draw();
             gl.PopMatrix();
