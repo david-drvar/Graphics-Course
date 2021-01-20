@@ -55,7 +55,7 @@ namespace AssimpSample
 
 
         public double skaliranjeLopte { get; set; }
-        public float rotiranjeLopte { get; set; }
+        public double rotiranjeLopte { get; set; }
 
         public float maxLopta = 250;
         public float trenutnaLopta = 0;
@@ -195,6 +195,7 @@ namespace AssimpSample
             this.m_width = width;
             this.m_height = height;
             this.skaliranjeLopte = 0.6f;
+            this.rotiranjeLopte = 0f;
         }
 
         /// <summary>
@@ -228,7 +229,7 @@ namespace AssimpSample
             timer1.Start();
 
             timer2 = new DispatcherTimer();
-            timer2.Interval = TimeSpan.FromMilliseconds(20);
+            timer2.Interval = TimeSpan.FromMilliseconds(50);
             timer2.Tick += new EventHandler(UpdateAnimationBouncing);
             timer2.Start();
 
@@ -251,7 +252,7 @@ namespace AssimpSample
 
         private void UpdateAnimationBallRotation(object sender, EventArgs e)
         {
-            rotiranjeLopte += 1;
+            rotiranjeLopte += rotiranjeLopte;
         }
 
         private void UpdateAnimationBouncing(object sender, EventArgs e)
@@ -376,7 +377,7 @@ namespace AssimpSample
             down.Height = 200;
 
             gl.PushMatrix();
-            gl.Rotate(0, rotiranjeLopte, 0);
+            gl.Rotate(0, (float) rotiranjeLopte, 0);
             gl.Translate(0,trenutnaLopta, 0);
             gl.Scale(skaliranjeLopte,skaliranjeLopte,skaliranjeLopte);
             gl.Translate(0f, 50f, 0f);

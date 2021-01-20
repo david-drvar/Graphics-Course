@@ -236,7 +236,7 @@ namespace AssimpSample
 
         private void IzborFaktoraRotacijeLopte(object sender, SelectionChangedEventArgs e)
         {
-            m_world.skaliranjeLopte = (float)ComboSkaliranjeLopte.SelectedItem;
+            m_world.rotiranjeLopte = (double) ComboRotacijaLopte.SelectedItem;
 
         }
     }
