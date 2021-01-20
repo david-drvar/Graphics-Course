@@ -14,6 +14,7 @@ using SharpGL.SceneGraph.Primitives;
 using SharpGL.SceneGraph.Quadrics;
 using SharpGL.SceneGraph.Core;
 using SharpGL;
+using SharpGL.SceneGraph.Cameras;
 
 namespace AssimpSample
 {
@@ -25,6 +26,44 @@ namespace AssimpSample
     public class World : IDisposable
     {
         #region Atributi
+
+        private LookAtCamera lookAtCam;
+        private float walkSpeed = 0.1f;
+        float mouseSpeed = 0.005f;
+        double horizontalAngle = 0f;
+        double verticalAngle = 0.0f;
+
+        //Pomocni vektori preko kojih definisemo lookAt funkciju
+        private Vertex direction;
+        private Vertex right;
+        private Vertex up;
+
+        public enum SkaliranjeLopte
+        {
+            Small,
+            Normal,
+            Bigger,
+
+        };
+
+        public enum BrzinaRotacije
+        {
+            Normal,
+            Slow,
+            Fast
+        };
+
+        private Boolean sut = false;
+
+        public Boolean Sut
+        {
+            get { return sut; }
+            set { sut = value; }
+        }
+
+
+        private SkaliranjeLopte skaliranje;
+        private BrzinaRotacije rotiranje;
 
         /// <summary>
         ///	 Ugao rotacije Meseca
@@ -158,6 +197,21 @@ namespace AssimpSample
             gl.ClearColor(0.0f, 0.0f, 0.0f, 1.0f);
             gl.Color(1f, 0f, 0f);
             // Model sencenja na flat (konstantno)
+
+            gl.Enable(OpenGL.GL_COLOR_MATERIAL);
+            gl.ColorMaterial(OpenGL.GL_FRONT, OpenGL.GL_AMBIENT_AND_DIFFUSE);
+            gl.Enable(OpenGL.GL_NORMALIZE);
+
+            // Podesavanje inicijalnih parametara kamere
+            //lookAtCam = new LookAtCamera();
+            //lookAtCam.Position = new Vertex(0f, 0f, 0f);
+            //lookAtCam.Target = new Vertex(0f, 0f, -10f);
+            //lookAtCam.UpVector = new Vertex(0f, 1f, 0f);
+            //right = new Vertex(1f, 0f, 0f);
+            //direction = new Vertex(0f, 0f, -1f);
+            //lookAtCam.Target = lookAtCam.Position + direction;
+            //lookAtCam.Project(gl);
+
             gl.ShadeModel(OpenGL.GL_FLAT);
             gl.Enable(OpenGL.GL_DEPTH_TEST);
             gl.Enable(OpenGL.GL_CULL_FACE);
@@ -174,22 +228,91 @@ namespace AssimpSample
             gl.Viewport(0, 0, m_width, m_height);
             gl.LoadIdentity();
 
+            gl.LookAt(0, 0, 10, 0, 0, 0, 0, 1, 0);
+
+
+            // #region svetlost
+            // gl.Enable(OpenGL.GL_LIGHTING);
+
+            gl.PushMatrix();
+
+            //tackasto
+            float[] amb = { 1f, 1f, 1f, 1.0f };
+            float[] dif = { 1.0f, 1.0f, 1.0f, 1.0f };
+
+            gl.Light(OpenGL.GL_LIGHT0, OpenGL.GL_AMBIENT, amb);
+            gl.Light(OpenGL.GL_LIGHT0, OpenGL.GL_DIFFUSE, dif);
+
+
+            float[] s = { 0f, 0f, -1f };
+            gl.Light(OpenGL.GL_LIGHT0, OpenGL.GL_SPOT_DIRECTION, s);
+
+            gl.Light(OpenGL.GL_LIGHT0, OpenGL.GL_SPOT_CUTOFF, 180.0f);
+
+            float[] pos = { 600f, 0.0f, 0.0f, 1.0f };
+            gl.Light(OpenGL.GL_LIGHT0, OpenGL.GL_POSITION, pos);
+
+            
+
+            gl.PopMatrix();
+
+            gl.Enable(OpenGL.GL_LIGHT0);
+
+            // //reflektor
+            // gl.PushMatrix();
+
+            // float[] diff = { 1f, 0.4f, 0.3f, 1f };
+            // float[] ambb = { 1f, 0.4f, 0.3f, 1f };
+
+            // gl.Light(OpenGL.GL_LIGHT1, OpenGL.GL_AMBIENT,
+            //ambb);
+            // gl.Light(OpenGL.GL_LIGHT1, OpenGL.GL_DIFFUSE,
+            //  diff);
+            // gl.Light(OpenGL.GL_LIGHT1, OpenGL.GL_SPOT_DIRECTION, ambb);
+
+            // gl.Light(OpenGL.GL_LIGHT1, OpenGL.GL_SPOT_CUTOFF, 35.0f);
+
+            // gl.Rotate(-50, 1, 0, 0);
+
+
+            // gl.PopMatrix();
+
+            // //if (OnTackasto)
+            // gl.Enable(OpenGL.GL_LIGHT0);
+            // //else
+            // //    gl.Disable(OpenGL.GL_LIGHT0);
+
+            // //if (OnReflektor)
+            // gl.Enable(OpenGL.GL_LIGHT1);
+            // //else
+            // //    gl.Disable(OpenGL.GL_LIGHT1);
+
+            // gl.Enable(OpenGL.GL_LIGHTING);
+            // gl.Enable(OpenGL.GL_NORMALIZE);
+
+            // gl.PopMatrix();
+            // #endregion
+
+
             gl.PushMatrix();
             gl.Translate(0.0f, 0.0f, -m_sceneDistance);
             gl.Rotate(m_xRotation, 1.0f, 0.0f, 0.0f);
             gl.Rotate(m_yRotation, 0.0f, 1.0f, 0.0f);
 
             Cylinder cylinder = new Cylinder();
+            cylinder.NormalGeneration = Normals.Smooth;
             cylinder.BaseRadius = 10;
             cylinder.TopRadius = 10;
             cylinder.Height = 400;
 
             Cylinder upper = new Cylinder();
+            upper.NormalGeneration = Normals.Smooth;
             upper.BaseRadius = 10;
             upper.TopRadius = 10;
             upper.Height = 100;
 
             Cylinder down = new Cylinder();
+            down.NormalGeneration = Normals.Smooth;
             down.BaseRadius = 10;
             down.TopRadius = 10;
             down.Height = 200;
