@@ -50,6 +50,7 @@ namespace AssimpSample
 
         public DispatcherTimer timer1;
         public DispatcherTimer timer2;
+        public DispatcherTimer timer3;
 
 
 
@@ -60,6 +61,14 @@ namespace AssimpSample
         public float maxLopta = 250;
         public float trenutnaLopta = 0;
         public bool nagore = true;
+
+        public bool isKickBallAnimationRunning = false;
+        public float korakZ = 10f;
+        public float korakY = 10f;
+        public float korakX = 0f;
+
+
+
 
 
         public enum BrzinaRotacije
@@ -233,6 +242,11 @@ namespace AssimpSample
             timer2.Tick += new EventHandler(UpdateAnimationBouncing);
             timer2.Start();
 
+            timer3 = new DispatcherTimer();
+            timer3.Interval = TimeSpan.FromMilliseconds(20);
+            timer3.Tick += new EventHandler(UpdateAnimationKickBall);
+            timer3.Start();
+
             // Podesavanje inicijalnih parametara kamere
             //lookAtCam = new LookAtCamera();
             //lookAtCam.Position = new Vertex(0f, 0f, 0f);
@@ -252,29 +266,44 @@ namespace AssimpSample
 
         private void UpdateAnimationBallRotation(object sender, EventArgs e)
         {
-            rotiranjeLopte += rotiranjeLopte;
+            if (isKickBallAnimationRunning == false)
+                rotiranjeLopte += rotiranjeLopte;
         }
 
         private void UpdateAnimationBouncing(object sender, EventArgs e)
         {
-            if (nagore == true && trenutnaLopta + 10 <= maxLopta)
-                trenutnaLopta += 10;
-            else if (nagore==true && trenutnaLopta == maxLopta)
+            if (isKickBallAnimationRunning == false)
             {
-                nagore = false;
-                trenutnaLopta -= 10;
-            }
-            else if (nagore == false && trenutnaLopta -10 >= 0)
-            {
-                nagore = false;
-                trenutnaLopta -= 10;
-            }
-            else if (trenutnaLopta == 0)
-            {
-                nagore = true;
-                trenutnaLopta += 10;
+                if (nagore == true && trenutnaLopta + 10 <= maxLopta)
+                    trenutnaLopta += 10;
+                else if (nagore == true && trenutnaLopta == maxLopta)
+                {
+                    nagore = false;
+                    trenutnaLopta -= 10;
+                }
+                else if (nagore == false && trenutnaLopta - 10 >= 0)
+                {
+                    nagore = false;
+                    trenutnaLopta -= 10;
+                }
+                else if (trenutnaLopta == 0)
+                {
+                    nagore = true;
+                    trenutnaLopta += 10;
+                }
             }
                 
+        }
+
+        private void UpdateAnimationKickBall(object sender, EventArgs e)
+        {
+            if (isKickBallAnimationRunning)
+            {
+                korakZ += 10;
+                korakY += 3;
+                korakX -= 1;
+
+            }
         }
 
         /// <summary>
@@ -354,6 +383,7 @@ namespace AssimpSample
 
 
             gl.PushMatrix();
+
             gl.Translate(0.0f, 0.0f, -m_sceneDistance);
             gl.Rotate(m_xRotation, 1.0f, 0.0f, 0.0f);
             gl.Rotate(m_yRotation, 0.0f, 1.0f, 0.0f);
@@ -377,6 +407,15 @@ namespace AssimpSample
             down.Height = 200;
 
             gl.PushMatrix();
+            if (isKickBallAnimationRunning)
+                gl.Translate(korakX, korakY, -korakZ-100);
+            if (korakZ >= 900)
+            {
+                isKickBallAnimationRunning = false;
+                korakZ = 0;
+                korakY = 0;
+                korakX = 0;
+            }
             gl.Rotate(0, (float) rotiranjeLopte, 0);
             gl.Translate(0,trenutnaLopta, 0);
             gl.Scale(skaliranjeLopte,skaliranjeLopte,skaliranjeLopte);

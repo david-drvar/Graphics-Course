@@ -199,7 +199,7 @@ namespace AssimpSample
                     break;
                 case Key.Add: m_world.SceneDistance -= 100.0f; break;
                 case Key.Subtract: m_world.SceneDistance += 100.0f; break;
-                case Key.V: m_world.Sut = true; break;
+                case Key.V: m_world.isKickBallAnimationRunning = true; break;
                 case Key.F3:
                     OpenFileDialog opfModel = new OpenFileDialog();
                     bool result = (bool)opfModel.ShowDialog();
