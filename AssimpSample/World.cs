@@ -17,6 +17,8 @@ using SharpGL;
 using SharpGL.SceneGraph.Cameras;
 using System.Threading;
 using System.Windows.Threading;
+using System.Drawing;
+using System.Drawing.Imaging;
 
 namespace AssimpSample
 {
@@ -89,6 +91,14 @@ namespace AssimpSample
 
         private SkaliranjeLopte skaliranje;
         private BrzinaRotacije rotiranje;
+
+        private enum TextureObjects { Trava = 0, Plastika };
+        private readonly int m_textureCount = Enum.GetNames(typeof(TextureObjects)).Length;
+
+        private uint[] m_textures;
+
+        private string[] m_textureFiles = { "..//..//teksture//trava.jpg", "..//..//teksture//plastika.jpg" };
+
 
         /// <summary>
         ///	 Ugao rotacije Meseca
@@ -257,11 +267,50 @@ namespace AssimpSample
             //lookAtCam.Target = lookAtCam.Position + direction;
             //lookAtCam.Project(gl);
 
+            // teksture
+            m_textures = new uint[2];
+            gl.Enable(OpenGL.GL_TEXTURE_2D);
+            gl.TexParameter(OpenGL.GL_TEXTURE_2D, OpenGL.GL_TEXTURE_MIN_FILTER, OpenGL.GL_NEAREST);
+            gl.TexParameter(OpenGL.GL_TEXTURE_2D, OpenGL.GL_TEXTURE_MAG_FILTER, OpenGL.GL_NEAREST);
+            gl.TexParameter(OpenGL.GL_TEXTURE_2D, OpenGL.GL_TEXTURE_WRAP_S, OpenGL.GL_REPEAT);
+            gl.TexParameter(OpenGL.GL_TEXTURE_2D, OpenGL.GL_TEXTURE_WRAP_T, OpenGL.GL_REPEAT);
+            gl.TexEnv(OpenGL.GL_TEXTURE_ENV, OpenGL.GL_TEXTURE_ENV_MODE, OpenGL.GL_MODULATE);
+
+            // Ucitaj slike i kreiraj teksture
+            gl.GenTextures(m_textureCount, m_textures);
+            for (int i = 0; i < m_textureCount; ++i)
+            {
+                // Pridruzi teksturu odgovarajucem identifikatoru
+                gl.BindTexture(OpenGL.GL_TEXTURE_2D, m_textures[i]);
+
+                // Ucitaj sliku i podesi parametre teksture
+                Bitmap image = new Bitmap(m_textureFiles[i]);
+                // rotiramo sliku zbog koordinantog sistema opengl-a
+                image.RotateFlip(RotateFlipType.RotateNoneFlipY);
+                Rectangle rect = new Rectangle(0, 0, image.Width, image.Height);
+                // RGBA format (dozvoljena providnost slike tj. alfa kanal)
+                BitmapData imageData = image.LockBits(rect, System.Drawing.Imaging.ImageLockMode.ReadOnly,
+                                                      System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+
+                gl.Build2DMipmaps(OpenGL.GL_TEXTURE_2D, (int)OpenGL.GL_RGBA8, image.Width, image.Height, OpenGL.GL_BGRA, OpenGL.GL_UNSIGNED_BYTE, imageData.Scan0);
+                gl.TexParameter(OpenGL.GL_TEXTURE_2D, OpenGL.GL_TEXTURE_MIN_FILTER, OpenGL.GL_LINEAR);      // Linear Filtering
+                gl.TexParameter(OpenGL.GL_TEXTURE_2D, OpenGL.GL_TEXTURE_MAG_FILTER, OpenGL.GL_LINEAR);      // Linear Filtering
+
+                image.UnlockBits(imageData);
+                image.Dispose();
+            }
+            //
+
             gl.ShadeModel(OpenGL.GL_FLAT);
             gl.Enable(OpenGL.GL_DEPTH_TEST);
             gl.Enable(OpenGL.GL_CULL_FACE);
+
+
             m_scene.LoadScene();
             m_scene.Initialize();
+
+
+
         }
 
         private void UpdateAnimationBallRotation(object sender, EventArgs e)
@@ -522,13 +571,28 @@ namespace AssimpSample
 
             //podloga
             gl.PushMatrix();
+
             gl.Color(0.39f, 0.99f, 0.37f);
             gl.Translate(0.0f, 90f, -0);
+
+            gl.MatrixMode(OpenGL.GL_TEXTURE);
+            gl.Scale(2f, 2f, 2f);
+            gl.BindTexture(OpenGL.GL_TEXTURE_2D, m_textures[0]);
+            
+            //gl.LoadIdentity();
+            //gl.MatrixMode(OpenGL.GL_MODELVIEW);
+
             gl.Begin(OpenGL.GL_QUADS);
+            gl.Normal(0f, 1f, 0f);
+            gl.TexCoord(0.0f, 1.0f);
             gl.Vertex4f(450f, -100f, 500, 1);
+            gl.TexCoord(1.0f, 1.0f);
             gl.Vertex4f(450f, -100f, -1200, 1);
+            gl.TexCoord(1.0f, 0.0f);
             gl.Vertex4f(-450f, -100f, -1200, 1);
+            gl.TexCoord(0.0f, 0.0f);
             gl.Vertex4f(-500f, -100f, 500, 1);
+
             gl.End();
             gl.PopMatrix();
 

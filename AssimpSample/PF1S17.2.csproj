@@ -57,6 +57,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Design" />
     <Reference Include="System.Device" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -130,6 +131,8 @@
     <Resource Include="3D Models\Duck\duckCM.bmp" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="teksture\plastika.jpg" />
+    <Resource Include="teksture\trava.jpg" />
     <Resource Include="3D Models\Ball\PlatonicSurface_Color.jpg" />
     <Content Include="AssimpLib\Assimp32.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
