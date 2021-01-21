@@ -243,17 +243,17 @@ namespace AssimpSample
             gl.Enable(OpenGL.GL_NORMALIZE);
 
             timer1 = new DispatcherTimer();
-            timer1.Interval = TimeSpan.FromMilliseconds(20);
+            timer1.Interval = TimeSpan.FromMilliseconds(10);
             timer1.Tick += new EventHandler(UpdateAnimationBallRotation);
             timer1.Start();
 
             timer2 = new DispatcherTimer();
-            timer2.Interval = TimeSpan.FromMilliseconds(50);
+            timer2.Interval = TimeSpan.FromMilliseconds(10);
             timer2.Tick += new EventHandler(UpdateAnimationBouncing);
             timer2.Start();
 
             timer3 = new DispatcherTimer();
-            timer3.Interval = TimeSpan.FromMilliseconds(20);
+            timer3.Interval = TimeSpan.FromMilliseconds(10);
             timer3.Tick += new EventHandler(UpdateAnimationKickBall);
             timer3.Start();
 
@@ -363,7 +363,8 @@ namespace AssimpSample
             gl.Clear(OpenGL.GL_COLOR_BUFFER_BIT | OpenGL.GL_DEPTH_BUFFER_BIT);
             gl.Viewport(0, 0, m_width, m_height);
             gl.LoadIdentity();
-            
+
+            gl.Enable(OpenGL.GL_TEXTURE_2D);
 
             gl.LookAt(0, 0, 10, 0, 0, 0, 0, 1, 0);
 
@@ -455,6 +456,9 @@ namespace AssimpSample
             down.TopRadius = 10;
             down.Height = 200;
 
+
+
+
             gl.PushMatrix();
             if (isKickBallAnimationRunning)
                 gl.Translate(korakX, korakY, -korakZ-100);
@@ -477,110 +481,181 @@ namespace AssimpSample
 
             //desni stativ
             gl.PushMatrix();
+
+            gl.Enable(OpenGL.GL_TEXTURE_2D);
+            gl.TexEnv(OpenGL.GL_TEXTURE_ENV, OpenGL.GL_TEXTURE_ENV_MODE, OpenGL.GL_MODULATE);
+            gl.BindTexture(OpenGL.GL_TEXTURE_2D, m_textures[(int)TextureObjects.Plastika]);
             gl.Translate(0f, 400f, -950f);
             gl.Translate(-200f, -10f, 0);
             gl.Rotate(90f, 0f, 0f);
+
             cylinder.CreateInContext(gl);
+
+            cylinder.TextureCoords = true;
             cylinder.Render(gl, SharpGL.SceneGraph.Core.RenderMode.Render);
+
             gl.PopMatrix();
 
             //gornji desni
             gl.PushMatrix();
+
+            gl.Enable(OpenGL.GL_TEXTURE_2D);
+            gl.TexEnv(OpenGL.GL_TEXTURE_ENV, OpenGL.GL_TEXTURE_ENV_MODE, OpenGL.GL_MODULATE);
+            gl.BindTexture(OpenGL.GL_TEXTURE_2D, m_textures[(int)TextureObjects.Plastika]);
+
             gl.Translate(0f, 400f, -950f);
             gl.Translate(-200f, -10f, 0);
             gl.Translate(0f, 0f, -100f);
+
             upper.CreateInContext(gl);
+
+            upper.TextureCoords = true;
             upper.Render(gl, SharpGL.SceneGraph.Core.RenderMode.Render);
             gl.PopMatrix();
 
             //gornji levi
             gl.PushMatrix();
+
+            gl.Enable(OpenGL.GL_TEXTURE_2D);
+            gl.TexEnv(OpenGL.GL_TEXTURE_ENV, OpenGL.GL_TEXTURE_ENV_MODE, OpenGL.GL_MODULATE);
+            gl.BindTexture(OpenGL.GL_TEXTURE_2D, m_textures[(int)TextureObjects.Plastika]);
+
             gl.Translate(0f, 400f, -950f);
             gl.Translate(200f, -10f, 0f);
             gl.Translate(0f, 0f, -100f);
-            upper.CreateInContext(gl);
+
+            upper.TextureCoords = true;
             upper.Render(gl, SharpGL.SceneGraph.Core.RenderMode.Render);
+
             gl.PopMatrix();
 
             //donji desni
+
+            gl.Enable(OpenGL.GL_TEXTURE_2D);
+            gl.TexEnv(OpenGL.GL_TEXTURE_ENV, OpenGL.GL_TEXTURE_ENV_MODE, OpenGL.GL_MODULATE);
+            gl.BindTexture(OpenGL.GL_TEXTURE_2D, m_textures[(int)TextureObjects.Plastika]);
+
             gl.PushMatrix();
             gl.Translate(0f, 400f, -950f);
             gl.Translate(-200f, -10f, 0);
             gl.Translate(0f, -388f, -200f);
+
             down.CreateInContext(gl);
+
+            down.TextureCoords = true;
             down.Render(gl, SharpGL.SceneGraph.Core.RenderMode.Render);
+
             gl.PopMatrix();
 
             //donji levi
             gl.PushMatrix();
+
+            gl.Enable(OpenGL.GL_TEXTURE_2D);
+            gl.TexEnv(OpenGL.GL_TEXTURE_ENV, OpenGL.GL_TEXTURE_ENV_MODE, OpenGL.GL_MODULATE);
+            gl.BindTexture(OpenGL.GL_TEXTURE_2D, m_textures[(int)TextureObjects.Plastika]);
+
             gl.Translate(0f, 400f, -950f);
             gl.Translate(200f, -10f, 0f);
             gl.Translate(0f, -388f, -200f);
-            down.CreateInContext(gl);
+
+            down.TextureCoords = true;
             down.Render(gl, SharpGL.SceneGraph.Core.RenderMode.Render);
+
             gl.PopMatrix();
 
 
             //levi stativ
             gl.PushMatrix();
+
+            gl.Enable(OpenGL.GL_TEXTURE_2D);
+            gl.TexEnv(OpenGL.GL_TEXTURE_ENV, OpenGL.GL_TEXTURE_ENV_MODE, OpenGL.GL_MODULATE);
+            gl.BindTexture(OpenGL.GL_TEXTURE_2D, m_textures[(int)TextureObjects.Plastika]);
+
             gl.Translate(0f, 400f, -950f);
             gl.Translate(200f, -10f, 0f);
             gl.Rotate(90f, 0f, 0f);
-            cylinder.CreateInContext(gl);
+
+            cylinder.TextureCoords = true;
             cylinder.Render(gl, SharpGL.SceneGraph.Core.RenderMode.Render);
+
             gl.PopMatrix();
 
             //gornji stativ
             gl.PushMatrix();
+
+            gl.Enable(OpenGL.GL_TEXTURE_2D);
+            gl.TexEnv(OpenGL.GL_TEXTURE_ENV, OpenGL.GL_TEXTURE_ENV_MODE, OpenGL.GL_MODULATE);
+            gl.BindTexture(OpenGL.GL_TEXTURE_2D, m_textures[(int)TextureObjects.Plastika]);
+
             gl.Translate(0f, 400f, -950f);
             gl.Translate(200f, -10f, 0f);
             gl.Rotate(90f, -90f, 0f);
-            cylinder.CreateInContext(gl);
+
+            cylinder.TextureCoords = true;
             cylinder.Render(gl, SharpGL.SceneGraph.Core.RenderMode.Render);
+
             gl.PopMatrix();
 
             //donji stativ
             gl.PushMatrix();
+
+            gl.Enable(OpenGL.GL_TEXTURE_2D);
+            gl.TexEnv(OpenGL.GL_TEXTURE_ENV, OpenGL.GL_TEXTURE_ENV_MODE, OpenGL.GL_MODULATE);
+            gl.BindTexture(OpenGL.GL_TEXTURE_2D, m_textures[(int)TextureObjects.Plastika]);
+
             gl.Translate(0f, 400f, -950f);
             gl.Translate(200f, -10f, 0f);
             gl.Translate(0, -388f, -200f);
             gl.Rotate(90f, -90f, 0f);
-            cylinder.CreateInContext(gl);
+
+            cylinder.TextureCoords = true;
             cylinder.Render(gl, SharpGL.SceneGraph.Core.RenderMode.Render);
+
             gl.PopMatrix();
 
             //ukoso leva
             gl.PushMatrix();
+
+            gl.Enable(OpenGL.GL_TEXTURE_2D);
+            gl.TexEnv(OpenGL.GL_TEXTURE_ENV, OpenGL.GL_TEXTURE_ENV_MODE, OpenGL.GL_MODULATE);
+            gl.BindTexture(OpenGL.GL_TEXTURE_2D, m_textures[(int)TextureObjects.Plastika]);
+
             gl.Translate(0f, 400f, -950f);
             gl.Translate(200f, -10f, 0f);
             gl.Translate(0f, -388f, -200f);
             gl.Rotate(-75f, 0f, 0f);
-            cylinder.CreateInContext(gl);
+
+            cylinder.TextureCoords = true;
             cylinder.Render(gl, SharpGL.SceneGraph.Core.RenderMode.Render);
+
             gl.PopMatrix();
 
             //ukoso desna
             gl.PushMatrix();
+
+            gl.Enable(OpenGL.GL_TEXTURE_2D);
+            gl.TexEnv(OpenGL.GL_TEXTURE_ENV, OpenGL.GL_TEXTURE_ENV_MODE, OpenGL.GL_MODULATE);
+            gl.BindTexture(OpenGL.GL_TEXTURE_2D, m_textures[(int)TextureObjects.Plastika]);
+
             gl.Translate(0f, 400f, -950f);
             gl.Translate(-200f, -10f, 0);
             gl.Translate(0f, -388f, -200f);
             gl.Rotate(-75f, 0f, 0f);
-            cylinder.CreateInContext(gl);
+
+            cylinder.TextureCoords = true;
             cylinder.Render(gl, SharpGL.SceneGraph.Core.RenderMode.Render);
+
             gl.PopMatrix();
+
 
             //podloga
             gl.PushMatrix();
 
-            gl.Color(0.39f, 0.99f, 0.37f);
             gl.Translate(0.0f, 90f, -0);
 
             gl.MatrixMode(OpenGL.GL_TEXTURE);
             gl.Scale(2f, 2f, 2f);
             gl.BindTexture(OpenGL.GL_TEXTURE_2D, m_textures[0]);
-            
-            //gl.LoadIdentity();
-            //gl.MatrixMode(OpenGL.GL_MODELVIEW);
 
             gl.Begin(OpenGL.GL_QUADS);
             gl.Normal(0f, 1f, 0f);
@@ -595,7 +670,6 @@ namespace AssimpSample
 
             gl.End();
             gl.PopMatrix();
-
 
             //ose
             gl.PushMatrix();

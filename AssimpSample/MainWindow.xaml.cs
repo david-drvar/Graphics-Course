@@ -153,6 +153,8 @@ namespace AssimpSample
 
 
 
+
+
             switch (e.Key)
             {
                 case Key.F4: this.Close(); break;
@@ -223,19 +225,26 @@ namespace AssimpSample
         }
 
         private void IzborBojeSelectionChanged(object sender, SelectionChangedEventArgs e)
-        {  
-            
+        {
+            if (m_world.isKickBallAnimationRunning == true)
+                return;
 
         }
 
         private void IzborFaktoraSkaliranjaLopte(object sender, SelectionChangedEventArgs e)
         {
+            if (m_world.isKickBallAnimationRunning == true)
+                return;
+
             m_world.skaliranjeLopte = (float) ComboSkaliranjeLopte.SelectedItem;
 
         }
 
         private void IzborFaktoraRotacijeLopte(object sender, SelectionChangedEventArgs e)
         {
+            if (m_world.isKickBallAnimationRunning == true)
+                return;
+
             m_world.rotiranjeLopte = (double) ComboRotacijaLopte.SelectedItem;
 
         }
