@@ -6,16 +6,10 @@
 // <summary>Klasa koja enkapsulira OpenGL programski kod.</summary>
 // -----------------------------------------------------------------------
 using System;
-using Assimp;
-using System.IO;
-using System.Reflection;
 using SharpGL.SceneGraph;
-using SharpGL.SceneGraph.Primitives;
 using SharpGL.SceneGraph.Quadrics;
-using SharpGL.SceneGraph.Core;
 using SharpGL;
 using SharpGL.SceneGraph.Cameras;
-using System.Threading;
 using System.Windows.Threading;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -341,7 +335,7 @@ namespace AssimpSample
                     trenutnaLopta += 10;
                 }
             }
-                
+
         }
 
         private void UpdateAnimationKickBall(object sender, EventArgs e)
@@ -367,69 +361,6 @@ namespace AssimpSample
             gl.Enable(OpenGL.GL_TEXTURE_2D);
 
             gl.LookAt(0, 0, 10, 0, 0, 0, 0, 1, 0);
-
-
-            // #region svetlost
-            // gl.Enable(OpenGL.GL_LIGHTING);
-
-            gl.PushMatrix();
-
-            //tackasto
-            float[] amb = { 1f, 1f, 1f, 1.0f };
-            float[] dif = { 1.0f, 1.0f, 1.0f, 1.0f };
-
-            gl.Light(OpenGL.GL_LIGHT0, OpenGL.GL_AMBIENT, amb);
-            gl.Light(OpenGL.GL_LIGHT0, OpenGL.GL_DIFFUSE, dif);
-
-
-            float[] s = { 0f, 0f, -1f };
-            gl.Light(OpenGL.GL_LIGHT0, OpenGL.GL_SPOT_DIRECTION, s);
-
-            gl.Light(OpenGL.GL_LIGHT0, OpenGL.GL_SPOT_CUTOFF, 180.0f);
-
-            float[] pos = { 600f, 0.0f, 0.0f, 1.0f };
-            gl.Light(OpenGL.GL_LIGHT0, OpenGL.GL_POSITION, pos);
-
-            
-
-            gl.PopMatrix();
-
-            gl.Enable(OpenGL.GL_LIGHT0);
-
-            // //reflektor
-            // gl.PushMatrix();
-
-            // float[] diff = { 1f, 0.4f, 0.3f, 1f };
-            // float[] ambb = { 1f, 0.4f, 0.3f, 1f };
-
-            // gl.Light(OpenGL.GL_LIGHT1, OpenGL.GL_AMBIENT,
-            //ambb);
-            // gl.Light(OpenGL.GL_LIGHT1, OpenGL.GL_DIFFUSE,
-            //  diff);
-            // gl.Light(OpenGL.GL_LIGHT1, OpenGL.GL_SPOT_DIRECTION, ambb);
-
-            // gl.Light(OpenGL.GL_LIGHT1, OpenGL.GL_SPOT_CUTOFF, 35.0f);
-
-            // gl.Rotate(-50, 1, 0, 0);
-
-
-            // gl.PopMatrix();
-
-            // //if (OnTackasto)
-            // gl.Enable(OpenGL.GL_LIGHT0);
-            // //else
-            // //    gl.Disable(OpenGL.GL_LIGHT0);
-
-            // //if (OnReflektor)
-            // gl.Enable(OpenGL.GL_LIGHT1);
-            // //else
-            // //    gl.Disable(OpenGL.GL_LIGHT1);
-
-            // gl.Enable(OpenGL.GL_LIGHTING);
-            // gl.Enable(OpenGL.GL_NORMALIZE);
-
-            // gl.PopMatrix();
-            // #endregion
 
 
             gl.PushMatrix();
@@ -461,7 +392,7 @@ namespace AssimpSample
 
             gl.PushMatrix();
             if (isKickBallAnimationRunning)
-                gl.Translate(korakX, korakY, -korakZ-100);
+                gl.Translate(korakX, korakY, -korakZ - 100);
             if (korakZ >= 900)
             {
                 isKickBallAnimationRunning = false;
@@ -469,21 +400,21 @@ namespace AssimpSample
                 korakY = 0;
                 korakX = 0;
             }
-            gl.Rotate(0, (float) rotiranjeLopte, 0);
-            gl.Translate(0,trenutnaLopta, 0);
-            gl.Scale(skaliranjeLopte,skaliranjeLopte,skaliranjeLopte);
+            gl.Rotate(0, (float)rotiranjeLopte, 0);
+            gl.Translate(0, trenutnaLopta, 0);
+            gl.Scale(skaliranjeLopte, skaliranjeLopte, skaliranjeLopte);
             gl.Translate(0f, 50f, 0f);
             m_scene.Draw();
             gl.PopMatrix();
-            
 
-            gl.Color(1f, 1f, 1f);
+
+            gl.Color(0f, 0f, 0f);
 
             //desni stativ
             gl.PushMatrix();
 
             gl.Enable(OpenGL.GL_TEXTURE_2D);
-            gl.TexEnv(OpenGL.GL_TEXTURE_ENV, OpenGL.GL_TEXTURE_ENV_MODE, OpenGL.GL_MODULATE);
+            gl.TexEnv(OpenGL.GL_TEXTURE_ENV, OpenGL.GL_TEXTURE_ENV_MODE, OpenGL.GL_ADD);
             gl.BindTexture(OpenGL.GL_TEXTURE_2D, m_textures[(int)TextureObjects.Plastika]);
             gl.Translate(0f, 400f, -950f);
             gl.Translate(-200f, -10f, 0);
@@ -500,7 +431,7 @@ namespace AssimpSample
             gl.PushMatrix();
 
             gl.Enable(OpenGL.GL_TEXTURE_2D);
-            gl.TexEnv(OpenGL.GL_TEXTURE_ENV, OpenGL.GL_TEXTURE_ENV_MODE, OpenGL.GL_MODULATE);
+            gl.TexEnv(OpenGL.GL_TEXTURE_ENV, OpenGL.GL_TEXTURE_ENV_MODE, OpenGL.GL_ADD);
             gl.BindTexture(OpenGL.GL_TEXTURE_2D, m_textures[(int)TextureObjects.Plastika]);
 
             gl.Translate(0f, 400f, -950f);
@@ -517,7 +448,7 @@ namespace AssimpSample
             gl.PushMatrix();
 
             gl.Enable(OpenGL.GL_TEXTURE_2D);
-            gl.TexEnv(OpenGL.GL_TEXTURE_ENV, OpenGL.GL_TEXTURE_ENV_MODE, OpenGL.GL_MODULATE);
+            gl.TexEnv(OpenGL.GL_TEXTURE_ENV, OpenGL.GL_TEXTURE_ENV_MODE, OpenGL.GL_ADD);
             gl.BindTexture(OpenGL.GL_TEXTURE_2D, m_textures[(int)TextureObjects.Plastika]);
 
             gl.Translate(0f, 400f, -950f);
@@ -532,7 +463,7 @@ namespace AssimpSample
             //donji desni
 
             gl.Enable(OpenGL.GL_TEXTURE_2D);
-            gl.TexEnv(OpenGL.GL_TEXTURE_ENV, OpenGL.GL_TEXTURE_ENV_MODE, OpenGL.GL_MODULATE);
+            gl.TexEnv(OpenGL.GL_TEXTURE_ENV, OpenGL.GL_TEXTURE_ENV_MODE, OpenGL.GL_ADD);
             gl.BindTexture(OpenGL.GL_TEXTURE_2D, m_textures[(int)TextureObjects.Plastika]);
 
             gl.PushMatrix();
@@ -551,7 +482,7 @@ namespace AssimpSample
             gl.PushMatrix();
 
             gl.Enable(OpenGL.GL_TEXTURE_2D);
-            gl.TexEnv(OpenGL.GL_TEXTURE_ENV, OpenGL.GL_TEXTURE_ENV_MODE, OpenGL.GL_MODULATE);
+            gl.TexEnv(OpenGL.GL_TEXTURE_ENV, OpenGL.GL_TEXTURE_ENV_MODE, OpenGL.GL_ADD);
             gl.BindTexture(OpenGL.GL_TEXTURE_2D, m_textures[(int)TextureObjects.Plastika]);
 
             gl.Translate(0f, 400f, -950f);
@@ -568,7 +499,7 @@ namespace AssimpSample
             gl.PushMatrix();
 
             gl.Enable(OpenGL.GL_TEXTURE_2D);
-            gl.TexEnv(OpenGL.GL_TEXTURE_ENV, OpenGL.GL_TEXTURE_ENV_MODE, OpenGL.GL_MODULATE);
+            gl.TexEnv(OpenGL.GL_TEXTURE_ENV, OpenGL.GL_TEXTURE_ENV_MODE, OpenGL.GL_ADD);
             gl.BindTexture(OpenGL.GL_TEXTURE_2D, m_textures[(int)TextureObjects.Plastika]);
 
             gl.Translate(0f, 400f, -950f);
@@ -584,7 +515,7 @@ namespace AssimpSample
             gl.PushMatrix();
 
             gl.Enable(OpenGL.GL_TEXTURE_2D);
-            gl.TexEnv(OpenGL.GL_TEXTURE_ENV, OpenGL.GL_TEXTURE_ENV_MODE, OpenGL.GL_MODULATE);
+            gl.TexEnv(OpenGL.GL_TEXTURE_ENV, OpenGL.GL_TEXTURE_ENV_MODE, OpenGL.GL_ADD);
             gl.BindTexture(OpenGL.GL_TEXTURE_2D, m_textures[(int)TextureObjects.Plastika]);
 
             gl.Translate(0f, 400f, -950f);
@@ -600,7 +531,7 @@ namespace AssimpSample
             gl.PushMatrix();
 
             gl.Enable(OpenGL.GL_TEXTURE_2D);
-            gl.TexEnv(OpenGL.GL_TEXTURE_ENV, OpenGL.GL_TEXTURE_ENV_MODE, OpenGL.GL_MODULATE);
+            gl.TexEnv(OpenGL.GL_TEXTURE_ENV, OpenGL.GL_TEXTURE_ENV_MODE, OpenGL.GL_ADD);
             gl.BindTexture(OpenGL.GL_TEXTURE_2D, m_textures[(int)TextureObjects.Plastika]);
 
             gl.Translate(0f, 400f, -950f);
@@ -617,7 +548,7 @@ namespace AssimpSample
             gl.PushMatrix();
 
             gl.Enable(OpenGL.GL_TEXTURE_2D);
-            gl.TexEnv(OpenGL.GL_TEXTURE_ENV, OpenGL.GL_TEXTURE_ENV_MODE, OpenGL.GL_MODULATE);
+            gl.TexEnv(OpenGL.GL_TEXTURE_ENV, OpenGL.GL_TEXTURE_ENV_MODE, OpenGL.GL_ADD);
             gl.BindTexture(OpenGL.GL_TEXTURE_2D, m_textures[(int)TextureObjects.Plastika]);
 
             gl.Translate(0f, 400f, -950f);
@@ -634,7 +565,7 @@ namespace AssimpSample
             gl.PushMatrix();
 
             gl.Enable(OpenGL.GL_TEXTURE_2D);
-            gl.TexEnv(OpenGL.GL_TEXTURE_ENV, OpenGL.GL_TEXTURE_ENV_MODE, OpenGL.GL_MODULATE);
+            gl.TexEnv(OpenGL.GL_TEXTURE_ENV, OpenGL.GL_TEXTURE_ENV_MODE, OpenGL.GL_ADD);
             gl.BindTexture(OpenGL.GL_TEXTURE_2D, m_textures[(int)TextureObjects.Plastika]);
 
             gl.Translate(0f, 400f, -950f);
