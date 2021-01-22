@@ -390,7 +390,22 @@ namespace AssimpSample
             down.TopRadius = 10;
             down.Height = 200;
 
-
+            gl.PushMatrix();
+            gl.Translate(300.0f, 20.0f, -950.0f);
+            gl.Rotate(-90, 1, 0, 0);
+            cylinder.CreateInContext(gl);
+            cylinder.Render(gl, SharpGL.SceneGraph.Core.RenderMode.Render);
+            float[] ambijentalnaKomponenta2 = { 0.5f, 0.5f, 0.5f, 1.0f };
+            float[] difuznaKomponenta2 = { 0.8f, 0.8f, 0.8f, 1.0f };
+            gl.Light(OpenGL.GL_LIGHT0, OpenGL.GL_AMBIENT, ambijentalnaKomponenta2);
+            gl.Light(OpenGL.GL_LIGHT0, OpenGL.GL_DIFFUSE, difuznaKomponenta2);
+            gl.Light(OpenGL.GL_LIGHT0, OpenGL.GL_SPOT_CUTOFF, 180.0f);
+            gl.Enable(OpenGL.GL_LIGHT0);
+            float[] pozicija = { 300.0f, 0.0f, 0.0f, 1.0f };
+            gl.Light(OpenGL.GL_LIGHT0, OpenGL.GL_POSITION, pozicija);
+            gl.Enable(OpenGL.GL_LIGHTING);
+            gl.Enable(OpenGL.GL_NORMALIZE);
+            gl.PopMatrix();
 
 
             gl.PushMatrix();
@@ -411,13 +426,13 @@ namespace AssimpSample
             gl.PopMatrix();
 
 
-            gl.Color(0f, 0f, 0f);
+            //gl.Color(0f, 0f, 0f);
 
             //desni stativ
             gl.PushMatrix();
 
             gl.Enable(OpenGL.GL_TEXTURE_2D);
-            gl.TexEnv(OpenGL.GL_TEXTURE_ENV, OpenGL.GL_TEXTURE_ENV_MODE, OpenGL.GL_ADD);
+            gl.TexEnv(OpenGL.GL_TEXTURE_ENV, OpenGL.GL_TEXTURE_ENV_MODE, OpenGL.GL_MODULATE);
             gl.BindTexture(OpenGL.GL_TEXTURE_2D, m_textures[(int)TextureObjects.Plastika]);
             gl.Translate(0f, 400f, -950f);
             gl.Translate(-200f, -10f, 0);
@@ -434,7 +449,7 @@ namespace AssimpSample
             gl.PushMatrix();
 
             gl.Enable(OpenGL.GL_TEXTURE_2D);
-            gl.TexEnv(OpenGL.GL_TEXTURE_ENV, OpenGL.GL_TEXTURE_ENV_MODE, OpenGL.GL_ADD);
+            gl.TexEnv(OpenGL.GL_TEXTURE_ENV, OpenGL.GL_TEXTURE_ENV_MODE, OpenGL.GL_MODULATE);
             gl.BindTexture(OpenGL.GL_TEXTURE_2D, m_textures[(int)TextureObjects.Plastika]);
 
             gl.Translate(0f, 400f, -950f);
@@ -451,7 +466,7 @@ namespace AssimpSample
             gl.PushMatrix();
 
             gl.Enable(OpenGL.GL_TEXTURE_2D);
-            gl.TexEnv(OpenGL.GL_TEXTURE_ENV, OpenGL.GL_TEXTURE_ENV_MODE, OpenGL.GL_ADD);
+            gl.TexEnv(OpenGL.GL_TEXTURE_ENV, OpenGL.GL_TEXTURE_ENV_MODE, OpenGL.GL_MODULATE);
             gl.BindTexture(OpenGL.GL_TEXTURE_2D, m_textures[(int)TextureObjects.Plastika]);
 
             gl.Translate(0f, 400f, -950f);
@@ -466,7 +481,7 @@ namespace AssimpSample
             //donji desni
 
             gl.Enable(OpenGL.GL_TEXTURE_2D);
-            gl.TexEnv(OpenGL.GL_TEXTURE_ENV, OpenGL.GL_TEXTURE_ENV_MODE, OpenGL.GL_ADD);
+            gl.TexEnv(OpenGL.GL_TEXTURE_ENV, OpenGL.GL_TEXTURE_ENV_MODE, OpenGL.GL_MODULATE);
             gl.BindTexture(OpenGL.GL_TEXTURE_2D, m_textures[(int)TextureObjects.Plastika]);
 
             gl.PushMatrix();
@@ -485,7 +500,7 @@ namespace AssimpSample
             gl.PushMatrix();
 
             gl.Enable(OpenGL.GL_TEXTURE_2D);
-            gl.TexEnv(OpenGL.GL_TEXTURE_ENV, OpenGL.GL_TEXTURE_ENV_MODE, OpenGL.GL_ADD);
+            gl.TexEnv(OpenGL.GL_TEXTURE_ENV, OpenGL.GL_TEXTURE_ENV_MODE, OpenGL.GL_MODULATE);
             gl.BindTexture(OpenGL.GL_TEXTURE_2D, m_textures[(int)TextureObjects.Plastika]);
 
             gl.Translate(0f, 400f, -950f);
@@ -502,7 +517,7 @@ namespace AssimpSample
             gl.PushMatrix();
 
             gl.Enable(OpenGL.GL_TEXTURE_2D);
-            gl.TexEnv(OpenGL.GL_TEXTURE_ENV, OpenGL.GL_TEXTURE_ENV_MODE, OpenGL.GL_ADD);
+            gl.TexEnv(OpenGL.GL_TEXTURE_ENV, OpenGL.GL_TEXTURE_ENV_MODE, OpenGL.GL_MODULATE);
             gl.BindTexture(OpenGL.GL_TEXTURE_2D, m_textures[(int)TextureObjects.Plastika]);
 
             gl.Translate(0f, 400f, -950f);
@@ -518,7 +533,7 @@ namespace AssimpSample
             gl.PushMatrix();
 
             gl.Enable(OpenGL.GL_TEXTURE_2D);
-            gl.TexEnv(OpenGL.GL_TEXTURE_ENV, OpenGL.GL_TEXTURE_ENV_MODE, OpenGL.GL_ADD);
+            gl.TexEnv(OpenGL.GL_TEXTURE_ENV, OpenGL.GL_TEXTURE_ENV_MODE, OpenGL.GL_MODULATE);
             gl.BindTexture(OpenGL.GL_TEXTURE_2D, m_textures[(int)TextureObjects.Plastika]);
 
             gl.Translate(0f, 400f, -950f);
@@ -534,7 +549,7 @@ namespace AssimpSample
             gl.PushMatrix();
 
             gl.Enable(OpenGL.GL_TEXTURE_2D);
-            gl.TexEnv(OpenGL.GL_TEXTURE_ENV, OpenGL.GL_TEXTURE_ENV_MODE, OpenGL.GL_ADD);
+            gl.TexEnv(OpenGL.GL_TEXTURE_ENV, OpenGL.GL_TEXTURE_ENV_MODE, OpenGL.GL_MODULATE);
             gl.BindTexture(OpenGL.GL_TEXTURE_2D, m_textures[(int)TextureObjects.Plastika]);
 
             gl.Translate(0f, 400f, -950f);
@@ -551,7 +566,7 @@ namespace AssimpSample
             gl.PushMatrix();
 
             gl.Enable(OpenGL.GL_TEXTURE_2D);
-            gl.TexEnv(OpenGL.GL_TEXTURE_ENV, OpenGL.GL_TEXTURE_ENV_MODE, OpenGL.GL_ADD);
+            gl.TexEnv(OpenGL.GL_TEXTURE_ENV, OpenGL.GL_TEXTURE_ENV_MODE, OpenGL.GL_MODULATE);
             gl.BindTexture(OpenGL.GL_TEXTURE_2D, m_textures[(int)TextureObjects.Plastika]);
 
             gl.Translate(0f, 400f, -950f);
@@ -568,7 +583,7 @@ namespace AssimpSample
             gl.PushMatrix();
 
             gl.Enable(OpenGL.GL_TEXTURE_2D);
-            gl.TexEnv(OpenGL.GL_TEXTURE_ENV, OpenGL.GL_TEXTURE_ENV_MODE, OpenGL.GL_ADD);
+            gl.TexEnv(OpenGL.GL_TEXTURE_ENV, OpenGL.GL_TEXTURE_ENV_MODE, OpenGL.GL_MODULATE);
             gl.BindTexture(OpenGL.GL_TEXTURE_2D, m_textures[(int)TextureObjects.Plastika]);
 
 
