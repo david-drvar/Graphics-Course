@@ -245,7 +245,7 @@ namespace AssimpSample
             if (m_world.isKickBallAnimationRunning == true)
                 return;
 
-            m_world.rotiranjeLopte = (double) ComboRotacijaLopte.SelectedItem;
+            m_world.rotacijaInkrement = (double) ComboRotacijaLopte.SelectedItem;
 
         }
     }

@@ -64,7 +64,7 @@ namespace AssimpSample
         public float korakX = 0f;
 
 
-
+        public double rotacijaInkrement = 0;
 
 
         public enum BrzinaRotacije
@@ -310,7 +310,10 @@ namespace AssimpSample
         private void UpdateAnimationBallRotation(object sender, EventArgs e)
         {
             if (isKickBallAnimationRunning == false)
-                rotiranjeLopte += rotiranjeLopte;
+            {
+                rotiranjeLopte += rotacijaInkrement;
+            }
+                
         }
 
         private void UpdateAnimationBouncing(object sender, EventArgs e)
@@ -568,6 +571,7 @@ namespace AssimpSample
             gl.TexEnv(OpenGL.GL_TEXTURE_ENV, OpenGL.GL_TEXTURE_ENV_MODE, OpenGL.GL_ADD);
             gl.BindTexture(OpenGL.GL_TEXTURE_2D, m_textures[(int)TextureObjects.Plastika]);
 
+
             gl.Translate(0f, 400f, -950f);
             gl.Translate(-200f, -10f, 0);
             gl.Translate(0f, -388f, -200f);
@@ -577,7 +581,6 @@ namespace AssimpSample
             cylinder.Render(gl, SharpGL.SceneGraph.Core.RenderMode.Render);
 
             gl.PopMatrix();
-
 
             //podloga
             gl.PushMatrix();
