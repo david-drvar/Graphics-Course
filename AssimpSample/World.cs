@@ -409,19 +409,19 @@ namespace AssimpSample
 
 
             gl.PushMatrix();
-            gl.Translate(0.0f, 40.0f, 0.0f);
-            gl.Rotate(-90, 1, 0, 0);
+            //gl.Translate(0.0f, 40.0f, 0.0f);
+            //gl.Rotate(90, 1, 0, 0);
             cylinder.CreateInContext(gl);
             cylinder.Render(gl, SharpGL.SceneGraph.Core.RenderMode.Render);
             float[] ambijentalnaKomponenta = {1f, 1f, 1f, 1.0f };
-            float[] difuznaKomponenta = { 0.0f, 0.0f, 1.0f, 1.0f };
-            float[] smer = { 0.0f, -1.0f, 0.0f };
+            float[] difuznaKomponenta = { 1.0f, 0.0f, 0.0f, 1.0f };
+            float[] smer = { 0.0f, 1.0f, 0.0f };
             gl.Light(OpenGL.GL_LIGHT1, OpenGL.GL_AMBIENT, ambijentalnaKomponenta);
             gl.Light(OpenGL.GL_LIGHT1, OpenGL.GL_SPECULAR, difuznaKomponenta);
             gl.Light(OpenGL.GL_LIGHT1, OpenGL.GL_DIFFUSE, difuznaKomponenta);
             gl.Light(OpenGL.GL_LIGHT1, OpenGL.GL_SPOT_DIRECTION, smer);
             gl.Light(OpenGL.GL_LIGHT1, OpenGL.GL_SPOT_CUTOFF, 35.0f);
-            float[] pozicijaReflektora = { 0.0f, 50.0f, 0.0f, 1.0f };
+            float[] pozicijaReflektora = { 0.0f, 40.0f, 0.0f, 1.0f };
             gl.Light(OpenGL.GL_LIGHT1, OpenGL.GL_POSITION, pozicijaReflektora);
             gl.Enable(OpenGL.GL_LIGHT1);
             gl.Enable(OpenGL.GL_LIGHTING);
