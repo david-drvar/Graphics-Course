@@ -391,12 +391,13 @@ namespace AssimpSample
             down.BaseRadius = 10;
             down.TopRadius = 10;
             down.Height = 200;
-
+            
+            //osvetljenje kod gola
             gl.PushMatrix();
             gl.Translate(300.0f, 20.0f, -950.0f);
             gl.Rotate(-90, 1, 0, 0);
             cylinder.CreateInContext(gl);
-            cylinder.Render(gl, SharpGL.SceneGraph.Core.RenderMode.Render);
+            //cylinder.Render(gl, SharpGL.SceneGraph.Core.RenderMode.Render);
             float[] ambijentalnaKomponenta2 = { 0.2f, 0.2f, 0.2f, 1.0f };
             float[] difuznaKomponenta2 = { 1f, 1f, 1f, 1.0f };
             gl.Light(OpenGL.GL_LIGHT0, OpenGL.GL_AMBIENT, ambijentalnaKomponenta2);
@@ -414,11 +415,11 @@ namespace AssimpSample
             //gl.Translate(0.0f, 40.0f, 0.0f);
             //gl.Rotate(90, 1, 0, 0);
             cylinder.CreateInContext(gl);
-            cylinder.Render(gl, SharpGL.SceneGraph.Core.RenderMode.Render);
+            //cylinder.Render(gl, SharpGL.SceneGraph.Core.RenderMode.Render);
             float[] ambijentalnaKomponenta = {1f, 1f, 1f, 1.0f };
-            float[] difuznaKomponenta =  { 0.0f, 0.0f, 1.0f, 1.0f };
+            float[] difuznaKomponenta =  { 0.0f, 1.0f, 1.0f, 1.0f };
             if (izborBoje.Equals("blue"))
-                difuznaKomponenta = new float[] { 0.0f, 0.0f, 1.0f, 1.0f };
+                difuznaKomponenta = new float[] { 0.0f, 1.0f, 1.0f, 1.0f };
             else if (izborBoje.Equals("red"))
                 difuznaKomponenta = new float[] { 1.0f, 0.0f, 0.0f, 1.0f };
             else if (izborBoje.Equals("yellow"))
@@ -466,8 +467,6 @@ namespace AssimpSample
 
             //podloga
             //gl.PushMatrix();
-
-
 
             gl.MatrixMode(OpenGL.GL_TEXTURE);
             //gl.Scale(2f, 2f, 2f);
