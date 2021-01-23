@@ -229,11 +229,11 @@ namespace AssimpSample
         public void Initialize(OpenGL gl)
         {
             gl.ClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-            gl.Color(1f, 0f, 0f);
+            //gl.Color(1f, 0f, 0f);
             // Model sencenja na flat (konstantno)
 
             gl.Enable(OpenGL.GL_COLOR_MATERIAL);
-            gl.ColorMaterial(OpenGL.GL_FRONT, OpenGL.GL_AMBIENT_AND_DIFFUSE);
+            gl.ColorMaterial(OpenGL.GL_FRONT_AND_BACK, OpenGL.GL_AMBIENT_AND_DIFFUSE);
             gl.Enable(OpenGL.GL_NORMALIZE);
 
             timer1 = new DispatcherTimer();
@@ -395,8 +395,8 @@ namespace AssimpSample
             gl.Rotate(-90, 1, 0, 0);
             cylinder.CreateInContext(gl);
             cylinder.Render(gl, SharpGL.SceneGraph.Core.RenderMode.Render);
-            float[] ambijentalnaKomponenta2 = { 0.5f, 0.5f, 0.5f, 1.0f };
-            float[] difuznaKomponenta2 = { 0.8f, 0.8f, 0.8f, 1.0f };
+            float[] ambijentalnaKomponenta2 = { 0.2f, 0.2f, 0.2f, 1.0f };
+            float[] difuznaKomponenta2 = { 1f, 1f, 1f, 1.0f };
             gl.Light(OpenGL.GL_LIGHT0, OpenGL.GL_AMBIENT, ambijentalnaKomponenta2);
             gl.Light(OpenGL.GL_LIGHT0, OpenGL.GL_DIFFUSE, difuznaKomponenta2);
             gl.Light(OpenGL.GL_LIGHT0, OpenGL.GL_SPOT_CUTOFF, 180.0f);
@@ -409,6 +409,27 @@ namespace AssimpSample
 
 
             gl.PushMatrix();
+            gl.Translate(0.0f, 40.0f, 0.0f);
+            gl.Rotate(-90, 1, 0, 0);
+            cylinder.CreateInContext(gl);
+            cylinder.Render(gl, SharpGL.SceneGraph.Core.RenderMode.Render);
+            float[] ambijentalnaKomponenta = {1f, 1f, 1f, 1.0f };
+            float[] difuznaKomponenta = { 0.0f, 0.0f, 1.0f, 1.0f };
+            float[] smer = { 0.0f, -1.0f, 0.0f };
+            gl.Light(OpenGL.GL_LIGHT1, OpenGL.GL_AMBIENT, ambijentalnaKomponenta);
+            gl.Light(OpenGL.GL_LIGHT1, OpenGL.GL_SPECULAR, difuznaKomponenta);
+            gl.Light(OpenGL.GL_LIGHT1, OpenGL.GL_DIFFUSE, difuznaKomponenta);
+            gl.Light(OpenGL.GL_LIGHT1, OpenGL.GL_SPOT_DIRECTION, smer);
+            gl.Light(OpenGL.GL_LIGHT1, OpenGL.GL_SPOT_CUTOFF, 35.0f);
+            float[] pozicijaReflektora = { 0.0f, 50.0f, 0.0f, 1.0f };
+            gl.Light(OpenGL.GL_LIGHT1, OpenGL.GL_POSITION, pozicijaReflektora);
+            gl.Enable(OpenGL.GL_LIGHT1);
+            gl.Enable(OpenGL.GL_LIGHTING);
+            gl.PopMatrix();
+
+            
+            gl.PushMatrix();
+            
             if (isKickBallAnimationRunning)
                 gl.Translate(korakX, korakY, -korakZ - 100);
             if (korakZ >= 900)
@@ -424,9 +445,34 @@ namespace AssimpSample
             gl.Translate(0f, 50f, 0f);
             m_scene.Draw();
             gl.PopMatrix();
-
+            gl.Translate(0.0f, 90f, -0);
 
             //gl.Color(0f, 0f, 0f);
+
+            //podloga
+            //gl.PushMatrix();
+
+
+
+            gl.MatrixMode(OpenGL.GL_TEXTURE);
+            //gl.Scale(2f, 2f, 2f);
+            gl.BindTexture(OpenGL.GL_TEXTURE_2D, m_textures[0]);
+            gl.MatrixMode(OpenGL.GL_MODELVIEW);
+            //
+            gl.Begin(OpenGL.GL_QUADS);
+            gl.Normal(0f, 1f, 0f);
+            gl.TexCoord(0.0f, 1.0f);
+            gl.Vertex4f(450f, -100f, 500, 1);
+            gl.TexCoord(1.0f, 1.0f);
+            gl.Vertex4f(450f, -100f, -1200, 1);
+            gl.TexCoord(1.0f, 0.0f);
+            gl.Vertex4f(-450f, -100f, -1200, 1);
+            gl.TexCoord(0.0f, 0.0f);
+            gl.Vertex4f(-500f, -100f, 500, 1);
+
+            gl.End();
+            gl.Translate(0.0f, -90f, -0);
+            //gl.PopMatrix();
 
             //desni stativ
             gl.PushMatrix();
@@ -597,28 +643,7 @@ namespace AssimpSample
 
             gl.PopMatrix();
 
-            //podloga
-            gl.PushMatrix();
 
-            gl.Translate(0.0f, 90f, -0);
-
-            gl.MatrixMode(OpenGL.GL_TEXTURE);
-            gl.Scale(2f, 2f, 2f);
-            gl.BindTexture(OpenGL.GL_TEXTURE_2D, m_textures[0]);
-
-            gl.Begin(OpenGL.GL_QUADS);
-            gl.Normal(0f, 1f, 0f);
-            gl.TexCoord(0.0f, 1.0f);
-            gl.Vertex4f(450f, -100f, 500, 1);
-            gl.TexCoord(1.0f, 1.0f);
-            gl.Vertex4f(450f, -100f, -1200, 1);
-            gl.TexCoord(1.0f, 0.0f);
-            gl.Vertex4f(-450f, -100f, -1200, 1);
-            gl.TexCoord(0.0f, 0.0f);
-            gl.Vertex4f(-500f, -100f, 500, 1);
-
-            gl.End();
-            gl.PopMatrix();
 
             //ose
             gl.PushMatrix();
@@ -663,6 +688,8 @@ namespace AssimpSample
             gl.Translate(m_width - 300, m_height - 30, 0f);
             gl.Viewport(0, 0, m_width, m_height);
             gl.PopMatrix();
+
+
 
 
 
