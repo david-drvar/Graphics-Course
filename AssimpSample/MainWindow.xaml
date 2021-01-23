@@ -9,7 +9,7 @@
             <ToolBarTray DockPanel.Dock="Top" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MaxWidth="1000">
                 <ToolBar>
                     <Label>Izbor boje</Label>
-                    <ComboBox  ItemsSource="{Binding Path=izborBojeSvetlosti}" SelectionChanged="IzborBojeSelectionChanged">
+                    <ComboBox Name="ComboBoje"  ItemsSource="{Binding Path=izborBojeSvetlosti}" SelectionChanged="IzborBojeSelectionChanged">
                         
                     </ComboBox>
                     <Label>Izbor faktora skaliranja lopte   </Label>

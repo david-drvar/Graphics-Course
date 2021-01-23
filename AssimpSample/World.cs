@@ -66,6 +66,8 @@ namespace AssimpSample
 
         public double rotacijaInkrement = 0;
 
+        public String izborBoje = "blue";
+
 
         public enum BrzinaRotacije
         {
@@ -414,7 +416,20 @@ namespace AssimpSample
             cylinder.CreateInContext(gl);
             cylinder.Render(gl, SharpGL.SceneGraph.Core.RenderMode.Render);
             float[] ambijentalnaKomponenta = {1f, 1f, 1f, 1.0f };
-            float[] difuznaKomponenta = { 1.0f, 0.0f, 0.0f, 1.0f };
+            float[] difuznaKomponenta =  { 0.0f, 0.0f, 1.0f, 1.0f };
+            if (izborBoje.Equals("blue"))
+                difuznaKomponenta = new float[] { 0.0f, 0.0f, 1.0f, 1.0f };
+            else if (izborBoje.Equals("red"))
+                difuznaKomponenta = new float[] { 1.0f, 0.0f, 0.0f, 1.0f };
+            else if (izborBoje.Equals("yellow"))
+                difuznaKomponenta = new float[] { 1.0f, 1.0f, 0.0f, 1.0f };
+            else if (izborBoje.Equals("purple"))
+                difuznaKomponenta = new float[] { 1.0f, 0.0f, 1.0f, 1.0f };
+            else if (izborBoje.Equals("white"))
+                difuznaKomponenta = new float[] { 1.0f, 1.0f, 1.0f, 1.0f };
+            else if (izborBoje.Equals("green"))
+                difuznaKomponenta = new float[] { 0.0f, 1.0f, 0.0f, 1.0f };
+
             float[] smer = { 0.0f, 1.0f, 0.0f };
             gl.Light(OpenGL.GL_LIGHT1, OpenGL.GL_AMBIENT, ambijentalnaKomponenta);
             gl.Light(OpenGL.GL_LIGHT1, OpenGL.GL_SPECULAR, difuznaKomponenta);

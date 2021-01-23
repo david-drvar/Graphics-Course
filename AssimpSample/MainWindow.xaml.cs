@@ -229,6 +229,7 @@ namespace AssimpSample
             if (m_world.isKickBallAnimationRunning == true)
                 return;
 
+            m_world.izborBoje = (string)ComboBoje.SelectedItem;
         }
 
         private void IzborFaktoraSkaliranjaLopte(object sender, SelectionChangedEventArgs e)
